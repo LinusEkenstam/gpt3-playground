@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import DropDown, { VibeType } from "../components/DropDown";
+import DropDownReaderAge, { ReaderAgeType } from "../components/DropDownReaderAge";
 import Footer from "../components/Footer";
 import Github from "../components/GitHub";
 import Header from "../components/Header";
@@ -15,17 +16,26 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState<VibeType>("Professional");
+  const [age, setAge] = useState<ReaderAgeType>("2-3 years");
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
   console.log("Streamed response: ", generatedBios);
 
   const prompt =
     vibe === "Funny"
-      ? `Generate 2 funny twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure there is a joke in there and it's a little ridiculous. Make sure each generated bio is at max 20 words and base it on this context: ${bio}${
-          bio.slice(-1) === "." ? "" : "."
+      ? `Topic: Children's Bedtime Story
+      Theme: ${bio}
+      Writing Style: ${vibe}
+      Reading age: ${age}
+      Include: Dialog between characters
+      Write 5 paragraphs, and important to end each paragraph with "|"
         }`
-      : `Generate 2 ${vibe} twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure each generated bio is at least 14 words and at max 20 words and base them on this context: ${bio}${
-          bio.slice(-1) === "." ? "" : "."
+      : `Topic: Children's Bedtime Story
+      Theme: ${bio}
+      Writing Style: ${vibe}
+      Reading age: ${age}
+      Include: Dialog between characters
+      Write 5 paragraphs, and important to end each paragraph with "|"
         }`;
 
   const generateBio = async (e: any) => {
@@ -70,38 +80,23 @@ const Home: NextPage = () => {
   return (
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>Twitter Generator</title>
+        <title>Story Playground</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
-        <a
-          className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600 shadow-md transition-colors hover:bg-gray-100 mb-5"
-          href="https://github.com/Nutlope/twitterbio"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Github />
-          <p>Star on GitHub</p>
-        </a>
+      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4">
+       
         <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900">
-          Generate your next Twitter bio in seconds
+          Story Playground
         </h1>
-        <p className="text-slate-500 mt-5">47,118 bios generated so far.</p>
+        
         <div className="max-w-xl w-full">
           <div className="flex mt-10 items-center space-x-3">
-            <Image
-              src="/1-black.png"
-              width={30}
-              height={30}
-              alt="1 icon"
-              className="mb-5 sm:mb-0"
-            />
             <p className="text-left font-medium">
-              Copy your current bio{" "}
+              1. Write a story prompt{" "}
               <span className="text-slate-500">
-                (or write a few sentences about yourself)
+                (it can be about anything)
               </span>
               .
             </p>
@@ -112,15 +107,21 @@ const Home: NextPage = () => {
             rows={4}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5"
             placeholder={
-              "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
+              "e.g. Explain photosynthesis for a 5 year old."
             }
           />
           <div className="flex mb-5 items-center space-x-3">
-            <Image src="/2-black.png" width={30} height={30} alt="1 icon" />
-            <p className="text-left font-medium">Select your vibe.</p>
+            <p className="text-left font-medium">2. Select your writing style.</p>
           </div>
           <div className="block">
             <DropDown vibe={vibe} setVibe={(newVibe) => setVibe(newVibe)} />
+          </div>
+
+          <div className="flex mb-5 items-center space-x-3 sm:mt-10 mt-8">
+            <p className="text-left font-medium">3. Select your reading age</p>
+          </div>
+          <div className="block">
+            <DropDownReaderAge age={age} setAge={(newAge) => setAge(newAge)} />
           </div>
 
           {!loading && (
@@ -128,7 +129,7 @@ const Home: NextPage = () => {
               className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               onClick={(e) => generateBio(e)}
             >
-              Generate your bio &rarr;
+              Generate your story &rarr;
             </button>
           )}
           {loading && (
@@ -153,20 +154,20 @@ const Home: NextPage = () => {
                 <>
                   <div>
                     <h2 className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto">
-                      Your generated bios
+                      Your story
                     </h2>
                   </div>
                   <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
                     {generatedBios
-                      .substring(generatedBios.indexOf("1") + 3)
-                      .split("2.")
+                      .substring(generatedBios.indexOf("1"))
+                      .split("|")
                       .map((generatedBio) => {
                         return (
                           <div
                             className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
                             onClick={() => {
                               navigator.clipboard.writeText(generatedBio);
-                              toast("Bio copied to clipboard", {
+                              toast("Story copied to clipboard", {
                                 icon: "✂️",
                               });
                             }}
