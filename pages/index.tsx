@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import DropDown, { VibeType } from "../components/DropDown";
+import DropDown, { WritingStyle } from "../components/DropDown";
 import DropDownReaderAge, { ReaderAgeType } from "../components/DropDownReaderAge";
 import Footer from "../components/Footer";
 import Github from "../components/GitHub";
@@ -15,28 +15,19 @@ import ResizablePanel from "../components/ResizablePanel";
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
-  const [vibe, setVibe] = useState<VibeType>("Professional");
+  const [style, setStyle] = useState<WritingStyle>("Bedtime Story");
   const [age, setAge] = useState<ReaderAgeType>("Baby");
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
   console.log("Streamed response: ", generatedBios);
 
   const prompt =
-    vibe === "Funny"
-      ? `Topic: Children's Bedtime Story
+      `Topic: A Story
       Theme: ${bio}
-      Writing Style: ${vibe}
+      Writing Style: ${style}
       Reading age: ${age}
       Include: Dialog between characters
-      Write 5 paragraphs, and important to end each paragraph with "|"
-        }`
-      : `Topic: Children's Bedtime Story
-      Theme: ${bio}
-      Writing Style: ${vibe}
-      Reading age: ${age}
-      Include: Dialog between characters
-      Write 5 paragraphs, and important to end each paragraph with "|"
-        }`;
+      Write 3 paragraphs, and important to end each paragraph with "|"`;
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -114,7 +105,7 @@ const Home: NextPage = () => {
             <p className="text-left font-medium">2. Select your writing style.</p>
           </div>
           <div className="block">
-            <DropDown vibe={vibe} setVibe={(newVibe) => setVibe(newVibe)} />
+            <DropDown style={style} setStyle={(newStyle) => setStyle(newStyle)} />
           </div>
 
           <div className="flex mb-5 items-center space-x-3 sm:mt-10 mt-8">
@@ -164,7 +155,7 @@ const Home: NextPage = () => {
                       .map((generatedBio) => {
                         return (
                           <div
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border text-left"
                             onClick={() => {
                               navigator.clipboard.writeText(generatedBio);
                               toast("Story copied to clipboard", {

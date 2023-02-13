@@ -14,7 +14,7 @@ export type ReaderAgeType = "Baby" | "Kindergartner" | "Primary School" | "Secon
 
 interface DropDownProps {
   age: ReaderAgeType;
-  setAge: (vibe: ReaderAgeType) => void;
+  setAge: (age: ReaderAgeType) => void;
 }
 
 let ages: ReaderAgeType[] = ["Baby", "Kindergartner", "Primary School", "Secondary School", "High School", "PhD Student"];

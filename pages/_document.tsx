@@ -8,16 +8,16 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <meta
             name="description"
-            content="GPT3 Playground"
+            content="Story Playground"
           />
           <meta property="og:site_name" content="bedtimestory.ai" />
           <meta
             property="og:description"
             content="Play with prompts and learn fast"
           />
-          <meta property="og:title" content="GPT3 Playground" />
+          <meta property="og:title" content="Story Playground" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="GPT3 Playground" />
+          <meta name="twitter:title" content="Story Playground" />
           <meta
             name="twitter:description"
             content="Play with prompts and learn fast"
