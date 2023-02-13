@@ -10,14 +10,14 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export type ReaderAgeType = "1-2 years" | "2-3 years" | "3-4 years" | "5-7 years" | "7-10 years" | "11-13 years" ;
+export type ReaderAgeType = "Baby" | "Kindergartner" | "Primary School" | "Secondary School" | "High School" | "PhD Student" ;
 
 interface DropDownProps {
   age: ReaderAgeType;
   setAge: (vibe: ReaderAgeType) => void;
 }
 
-let ages: ReaderAgeType[] = ["1-2 years", "2-3 years", "3-4 years", "5-7 years", "7-10 years", "11-13 years"];
+let ages: ReaderAgeType[] = ["Baby", "Kindergartner", "Primary School", "Secondary School", "High School", "PhD Student"];
 
 export default function DropDown({ age, setAge }: DropDownProps) {
   return (

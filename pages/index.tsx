@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState<VibeType>("Professional");
-  const [age, setAge] = useState<ReaderAgeType>("2-3 years");
+  const [age, setAge] = useState<ReaderAgeType>("Baby");
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
   console.log("Streamed response: ", generatedBios);
