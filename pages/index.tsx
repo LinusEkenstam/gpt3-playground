@@ -78,7 +78,7 @@ const Home: NextPage = () => {
       <Header />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4">
        
-        <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900">
+        <h1 className="sm:text-6xl text-4xl max-w-2xl font-bold text-slate-900 text-left">
           Story Playground
         </h1>
         
